@@ -21,19 +21,14 @@ def main():
     N = len(graph.vertices)
     node_indices = list(graph.vertices)
 
-    plot = figure(title='Graph Layout Demonstration', x_range=(-10,10), y_range=(-10,10),
+    plot = figure(title='Graph Layout Demonstration', x_range=(-1,10), y_range=(-1,10),
                   tools='', toolbar_location=None)
 
     graph_renderer = GraphRenderer()
 
     graph_renderer.node_renderer.data_source.add(node_indices, 'index')
     graph_renderer.node_renderer.data_source.add(['red'] * N, 'color')
-    graph_renderer.node_renderer.glyph = Circle(radius=0.1, fill_color='color')
-
-    # edges = {}
-    # for v in graph.vertices:
-    #     edges[]
-
+    graph_renderer.node_renderer.glyph = Circle(radius=0.5, fill_color='color')
 
     start_indices = []
     end_indices = []
@@ -49,15 +44,24 @@ def main():
 
 
     ### start of layout code
-    circ = [v for v in graph.vertices]
-    x = [math.cos(i) for i in circ]
-    y = [math.sin(i) for i in circ]
+    vertex_values = [v for v in graph.vertices]
+    x = [2 * (i // 3) for i in vertex_values]
+    y = [2 * (i % 3) for i in vertex_values]
 
     graph_layout = dict(zip(node_indices, zip(x, y)))
     print (graph_layout)
     graph_renderer.layout_provider = StaticLayoutProvider(graph_layout=graph_layout)
 
     plot.renderers.append(graph_renderer)
+
+    labelSource = ColumnDataSource(data=dict(x=x,y=y,names=vertex_values))
+
+    # TODO:  Label styles
+    labels = LabelSet(x='x', y='y', text='names', level='glyph',
+                text_align='center', text_baseline='middle', source=labelSource, render_mode='canvas')
+
+    plot.add_layout(labels)
+
 
     output_file('graph.html')
     show(plot)
