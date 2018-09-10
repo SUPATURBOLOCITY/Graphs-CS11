@@ -16,20 +16,20 @@ def setup_plot():
     return plot
 
 def setup_graph_renderer(graph):
-    N = len(graph.vertexes)
+    N = len(graph.vertices)
     node_indices = list(range(N))
 
     graph_renderer = GraphRenderer()
 
     graph_renderer.node_renderer.data_source.add(node_indices, 'index')
-    graph_renderer.node_renderer.data_source.add(graph.get_colors(), 'color')
+    graph_renderer.node_renderer.data_source.add(['blue'] * N, 'color')
     # TODO: change to circle                  # TODO: Magic Numbers
     graph_renderer.node_renderer.glyph = Circle(size=35, fill_color='color')
 
     graph_renderer.edge_renderer.data_source.data = get_edge_indexes(graph)
 
-    x = [v.pos['x'] for v in graph.vertexes]
-    y = [v.pos['y'] for v in graph.vertexes]
+    x = [v.pos['x'] for v in graph.vertices]
+    y = [v.pos['y'] for v in graph.vertices]
 
     graph_layout = dict(zip(node_indices, zip(x, y)))
     graph_renderer.layout_provider = StaticLayoutProvider(graph_layout=graph_layout)
@@ -40,10 +40,10 @@ def get_edge_indexes(graph):
     start_indices = []
     end_indices = []
 
-    for start_index, vertex in enumerate(graph.vertexes):
+    for start_index, vertex in enumerate(graph.vertices):
         for e in vertex.edges:
             start_indices.append(start_index)
-            end_indices.append(graph.vertexes.index(e.destination))
+            end_indices.append(graph.vertices.index(e.destination))
 
     return dict(start=start_indices, end=end_indices)
 
@@ -62,7 +62,13 @@ def setup_labels(graph):
 
 def main():
     graph = Graph()
-    graph.get_connected_components()
+
+    graph.add_vertex('0')
+    graph.add_vertex('1')
+    graph.add_vertex('2')
+    graph.add_vertex('3')
+    graph.add_edge('0', '1')
+    graph.add_edge('0', '3')
 
     plot = setup_plot()
 
