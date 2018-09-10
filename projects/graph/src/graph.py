@@ -15,5 +15,3 @@ class Graph:
             self.vertices[v2].add(v1)
         else:
             raise IndexError("That vertex does not exist!")
-    def get_edges(self):
-        pass
