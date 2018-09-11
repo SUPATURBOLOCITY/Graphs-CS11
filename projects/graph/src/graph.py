@@ -32,7 +32,6 @@ def bft(adjList, node_id):
             frontier.append(next_node)
 
 
-dft(graph.vertices, 0)
-bft(graph.vertices, 0)
-
+# dft(graph.vertices, 0)
+# bft(graph.vertices, 0)
 
