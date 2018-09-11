@@ -15,3 +15,24 @@ class Graph:
             self.vertices[v2].add(v1)
         else:
             raise IndexError("That vertex does not exist!")
+
+
+def dft(adjList, node_id):
+    print(node_id)
+    for n in adjList[node_id]:
+        dft(adjList, n)
+
+def bft(adjList, node_id):
+    frontier = []
+    frontier.append(node_id)
+    while len(frontier) > 0:
+        n = frontier.pop(0)
+        print(n)
+        for next_node in adjList[n]:
+            frontier.append(next_node)
+
+
+dft(graph.vertices, 0)
+bft(graph.vertices, 0)
+
+
