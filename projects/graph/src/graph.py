@@ -31,8 +31,6 @@ def dft(adjList, node_id, visited):
             dft(adjList, child_node, visited)
 
 
-
-
 def bft(adjList, node_id):
     frontier = []
     frontier.append(node_id)
@@ -44,11 +42,5 @@ def bft(adjList, node_id):
           visited.append(n)
           for next_node in adjList[n]:
               frontier.append(next_node)
-
-
-
-
-
-
 
 
