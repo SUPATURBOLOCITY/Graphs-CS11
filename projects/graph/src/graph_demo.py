@@ -93,11 +93,3 @@ if __name__ == '__main__':
 
     main(style=style, num_verts=num_verts, num_edges=num_edges)
 
-
-
-
-
-
-
-
-
