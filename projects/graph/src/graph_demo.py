@@ -48,7 +48,6 @@ def getRandomGraph(numVerts, numEdges):
             if i < j:
                 allEdges.append( (i, j) )
     # O(n)
-    print(len(allEdges))
     random.shuffle(allEdges)
     # O(1)
     randomEdges = allEdges[:numEdges]
@@ -60,8 +59,6 @@ def getRandomGraph(numVerts, numEdges):
 
 
 def main(**kwargs):
-    print(kwargs)
-
     style = kwargs["style"]
     numVerts = kwargs["num_verts"]
     numEdges = kwargs["num_edges"]
