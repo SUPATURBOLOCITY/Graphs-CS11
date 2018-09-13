@@ -88,17 +88,27 @@ class Graph:
         for child_vert in self.vertices[start_vert].edges:
             # Check if child has been visited
             if child_vert not in visited:
+                # If not, call DFS
                 self.dft(child_vert)
+
     def bft(self, starting_vertex_id):
+        # Create empty queue
         q = Queue()
+        # Put starting vert in the queue
         q.enqueue(starting_vertex_id)
+        # Declare visited list
         visited = []
-        while len(frontier) > 0:
+        # While the queue is not empty...
+        while q.size() > 0:
+            # ...remove the first item from the queue...
             v = q.dequeue()
+            # ...then if it has not been visited...
             if v not in visited:
-                print(self.vertices[starting_vertex_id].value)
-                visited.append(v)
-                for next_node in self.vertices[v].edges:
+                # ...print it's value...
+                print(self.vertices[v].value)
+                visited.append(v) # Mark as visited
+                # ...then add each child to the queue.
+                for next_vert in self.vertices[v].edges:
                     q.enqueue(next_vert)
 
 
