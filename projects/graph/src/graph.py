@@ -91,6 +91,25 @@ class Graph:
                 # If not, call DFS
                 self.dft(child_vert)
 
+    def dft_stack(self, starting_vertex_id):
+        # Create empty queue
+        stack = Stack()
+        # Put starting vert in the queue
+        stack.push(starting_vertex_id)
+        # Declare visited list
+        visited = []
+        # While the queue is not empty...
+        while stack.size() > 0:
+            # ...remove the first item from the queue...
+            v = stack.pop()
+            # ...then if it has not been visited...
+            if v not in visited:
+                # ...print it's value...
+                print(self.vertices[v].value)
+                visited.append(v) # ...mark as visited...
+                # ...then put its children into the queue.
+                for next_vert in self.vertices[v].edges:
+                    stack.push(next_vert)
     def bft(self, starting_vertex_id):
         # Create empty queue
         q = Queue()
@@ -106,9 +125,32 @@ class Graph:
             if v not in visited:
                 # ...print it's value...
                 print(self.vertices[v].value)
-                visited.append(v) # Mark as visited
-                # ...then add each child to the queue.
+                visited.append(v) # ...mark as visited...
+                # ...then put its children into the queue.
                 for next_vert in self.vertices[v].edges:
                     q.enqueue(next_vert)
+
+    def dfs(self, start_vert, target_value, visited=[]):
+        visited.append(start_vert)
+        if self.vertices[start_vert].value == target_value:
+            return True
+        for child_vert in self.vertices[start_vert].edges:
+            if child_vert not in visited:
+                if self.dfs(child_vert, target_value, visited):
+                    return True
+        return False
+    def bfs(self, starting_vertex_id, target_value):
+        q = Queue()
+        q.enqueue(starting_vertex_id)
+        visited = []
+        while q.size() > 0:
+            v = q.dequeue()
+            if v not in visited:
+                if self.vertices[v].value == target_value:
+                    return True
+                visited.append(v) # ...mark as visited...
+                for next_vert in self.vertices[v].edges:
+                    q.enqueue(next_vert)
+        return False
 
 
