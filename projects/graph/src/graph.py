@@ -164,6 +164,25 @@ class Graph:
                 if new_path:
                     return new_path
         return None
+    def bfs_path(self, starting_vertex_id, target_value):
+        q = Queue()
+        q.enqueue([starting_vertex_id])
+        visited = []
+        while q.size() > 0:
+            print(q.queue)
+            path = q.dequeue()
+            v = path[-1]
+            if v not in visited:
+                if self.vertices[v].value == target_value:
+                    return path
+                visited.append(v) # ...mark as visited...
+                for next_vert in self.vertices[v].edges:
+                    # q.enqueue(next_vert)
+                    new_path = list(path)
+                    new_path.append(next_vert)
+                    q.enqueue(new_path)
+        return None
+
 
 
 
