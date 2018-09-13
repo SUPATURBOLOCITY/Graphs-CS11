@@ -31,6 +31,8 @@ def getDefaultGraph():
     graph.add_edge(3, 7)
     graph.add_edge(3, 6)
 
+    graph.add_edge(7, 9)
+
     return graph
 
     # O(n^2)
@@ -69,6 +71,8 @@ def main(**kwargs):
         graph = getRandomGraph(numVerts, numEdges)
     else:
         graph = getDefaultGraph()
+
+    # graph.bft(0)
 
     bokeh_graph = BokehGraph(graph)
 
