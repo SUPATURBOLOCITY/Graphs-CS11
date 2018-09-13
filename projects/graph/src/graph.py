@@ -153,4 +153,17 @@ class Graph:
                     q.enqueue(next_vert)
         return False
 
+    def dfs_path(self, start_vert, target_value, visited=[], path=[]):
+        visited.append(start_vert)
+        path = path + [start_vert]
+        if self.vertices[start_vert].value == target_value:
+            return path
+        for child_vert in self.vertices[start_vert].edges:
+            if child_vert not in visited:
+                new_path = self.dfs_path(child_vert, target_value, visited, path)
+                if new_path:
+                    return new_path
+        return None
+
+
 
