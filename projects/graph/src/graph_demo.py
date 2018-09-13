@@ -70,6 +70,8 @@ def main(**kwargs):
     else:
         graph = getDefaultGraph()
 
+    graph.dft(0)
+
     bokeh_graph = BokehGraph(graph)
 
     bokeh_graph.draw()

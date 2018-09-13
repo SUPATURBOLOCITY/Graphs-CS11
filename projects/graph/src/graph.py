@@ -4,6 +4,35 @@ import random
 Simple graph implementation compatible with BokehGraph class.
 """
 
+class Queue():
+    def __init__(self):
+        self.queue = []
+    def enqueue(self, value):
+        self.queue.append(value)
+    def dequeue(self):
+        if self.size() > 0:
+            return self.queue.pop(0)
+        else:
+            return None
+    def size(self):
+        return len(self.queue)
+
+class Stack():
+    def __init__(self):
+        self.stack = []
+    def push(self, value):
+        self.stack.append(value)
+    def pop(self):
+        if self.size() > 0:
+            return self.stack.pop()
+        else:
+            return None
+    def size(self):
+        return len(self.stack)
+
+
+
+
 class Vertex:
     def __init__(self, vertex_id, x=None, y=None, value=None, color=None):
         self.id = int(vertex_id)
@@ -50,27 +79,26 @@ class Graph:
             self.vertices[v1].edges.add(v2)
         else:
             raise IndexError("That vertex does not exist!")
-
-
-
-
-# def dft(adjList, node_id, visited):
-#     visited.append(node_id)
-#     for child_node in adjList[node_id]:
-#         if child_node not in visited:
-#             dft(adjList, child_node, visited)
-
-
-# def bft(adjList, node_id):
-#     frontier = []
-#     frontier.append(node_id)
-#     visited = []
-#     while len(frontier) > 0:
-#         n = frontier.pop(0)
-#         if n not in visited:
-#           print(n)
-#           visited.append(n)
-#           for next_node in adjList[n]:
-#               frontier.append(next_node)
+    def dft(self, start_vert, visited=[]):
+        # Visited checks if we've visited the node before
+        visited.append(start_vert)
+        # Touch visited node
+        print(self.vertices[start_vert].value)
+        # Call DFS on each child (that has not been visited)
+        for child_vert in self.vertices[start_vert].edges:
+            # Check if child has been visited
+            if child_vert not in visited:
+                self.dft(child_vert)
+    def bft(self, starting_vertex_id):
+        q = Queue()
+        q.enqueue(starting_vertex_id)
+        visited = []
+        while len(frontier) > 0:
+            v = q.dequeue()
+            if v not in visited:
+                print(self.vertices[starting_vertex_id].value)
+                visited.append(v)
+                for next_node in self.vertices[v].edges:
+                    q.enqueue(next_vert)
 
 
